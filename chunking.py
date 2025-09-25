@@ -45,7 +45,7 @@ def semantic_chunking(documents: List[Document], model_embedding: SentenceTransf
 
         if len(sentences) > 0:
             # 2. Generates the sentences embeddings
-            embeddings = model_embedding.encode(sentences, convert_to_tensor=True)
+            embeddings = model_embedding.encode(sentences, convert_to_tensor=True, show_progress_bar=True)
 
             # 3. Calculates the similarity between adjacent sentences
             similarities = util.cos_sim(embeddings[:-1], embeddings[1:])

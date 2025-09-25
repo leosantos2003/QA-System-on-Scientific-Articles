@@ -13,14 +13,20 @@ def generate_and_save_embeddings():
 
     # 1. Loads the document chunks
     print("Phase 1: Loading document chunks...\n")
-    # Ensures that the NLTK needed packages are available
+    # Check for and download the 'punkt' tokenizer
     try:
         nltk.data.find('tokenizers/punkt')
-        nltk.data.find('tokenizers/punkt_tab')
-    except nltk.downloader.DownloadError:
-        print("Downloading NLTK needed packages ('punkt', 'punkt_tab')")
-        nltk.download('punkt', quiet=True)
-        nltk.download('punkt_tab', quiet=True)
+    except LookupError:
+        print("NLTK 'punkt' model not found. Downloading...")
+        nltk.download('punkt')
+
+    # Check for and download the 'punkt_tab' resource
+    try:
+        # We check for a specific language file since punkt_tab is a directory
+        nltk.data.find('tokenizers/punkt_tab/english.pt')
+    except LookupError:
+        print("NLTK 'punkt_tab' resource not found. Downloading...")
+        nltk.download('punkt_tab')
 
     loaded_documents = load_corpus(CORPUS_PATH)
 
@@ -50,7 +56,7 @@ def generate_and_save_embeddings():
         convert_to_numpy=True
     )
     print("Embeddings succesfully generated!\n")
-    print("Embeddings matrix format: {embeddings.shape}")
+    print(f"Embeddings matrix format: {embeddings.shape}")
 
     # 4. Saves the embeddings and texts from the chunks
     print("Phase 4: Saving embeddings and texts from chunks to disk...\n")
