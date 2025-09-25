@@ -8,3 +8,4 @@ pypdf
 sentence-transformers
 nltk
 langchain-huggingface
+llama-cpp-python

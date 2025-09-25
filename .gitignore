@@ -1,2 +1,5 @@
 .venv/
 corpus_pdfs/
+faiss_index/
+models/
+corpus_vectors.pkl
