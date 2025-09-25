@@ -57,7 +57,7 @@ def generate_and_save_embeddings():
 
     # Saving the data into a binary file using pickle to preserve the structure
     with open("corpus_vectors.pkl", "wb") as f:
-        pickle.dump({"chunks": text_from_chunks, "embeddings": embeddings}, f)
+        pickle.dump({"chunks": chunks, "embeddings": embeddings}, f)
 
     print("'corpus_vectors.pkl' file successfully saved!\n")
     print("This file will be used as input to create the FAISS index.\n")
