@@ -65,3 +65,4 @@ if __name__ == "__main__":
 
         # Shows the document origin (metadata)
         print(f"Source from the document sample: {documents[0].metadata['source']}\n")
+        
