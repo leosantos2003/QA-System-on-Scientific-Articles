@@ -18,6 +18,8 @@ def load_sabia_model(model_path: str):
         n_batch=512,
         n_ctx=4096,
         f16_kv=True, # Must be True for higher quality
+        max_tokens=512,
+        stop=["\n", "Pergunta:"],
         verbose=True, # Displays processing details
     )
     print("Sabiá model succesfully loaded.\n")
@@ -29,17 +31,17 @@ def create_rag_prompt_template():
     """
     print("Creating the RAG prompt template...\n")
 
-    template_string = """Use o contexto abaixo para responder à pergunta no final.
-Se a resposta não estiver contida no contexto, diga "Com base no contexto fornecido, não encontrei informações suficientes para responder.".
-Responda exclusivamente em português.
-
-Contexto:
+    template_string = """### CONTEXTO
 {context}
 
-Pergunta:
+### PERGUNTA
 {question}
 
-Resposta:
+### INSTRUÇÕES
+1. Use apenas o contexto acima para responder à pergunta.
+2. Responda com uma única frase concisa em português.
+
+### RESPOSTA
 """
 
     prompt_template = PromptTemplate(
