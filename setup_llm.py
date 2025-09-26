@@ -20,7 +20,7 @@ def load_sabia_model(model_path: str):
         f16_kv=True, # Must be True for higher quality
         max_tokens=512,
         stop=["\n", "Pergunta:"],
-        verbose=True, # Displays processing details
+        verbose=False, # Set to True to display processing details
     )
     print("Sabiá model succesfully loaded.\n")
     return llm
