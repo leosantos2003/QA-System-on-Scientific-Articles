@@ -121,7 +121,7 @@ pip install -r requirements.txt
 
 4. Download the LLM:
      * Create a `models` folder at the root of the project.
-     * Dowload the GGUF model `sabia-7b.Q4_K_M.gguf` from the [repository](https://huggingface.co/TheBloke/sabia-7B-GGUF) and save it in `models`
+     * Dowload the GGUF model `sabia-7b.Q4_K_M.gguf` from the [repository](https://huggingface.co/TheBloke/sabia-7B-GGUF) and save it in `models`.
 
 5. Build the vectorial index:
      * Create a `corpus_pdfs` folder at the root of the project.
