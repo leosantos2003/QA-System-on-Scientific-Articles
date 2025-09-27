@@ -130,7 +130,8 @@ pip install -r requirements.txt
      * Run the indexing scripts in order:
           * ```console
             # 1.
-            python vectorization.py # This may take a while...
+            # This one may take a while...
+            python vectorization.py
             # 2.
             python create_faiss_index.py
             ```
