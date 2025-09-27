@@ -4,7 +4,7 @@
 
 The system is a Question-Answer (QA) pipeline that uses the RAG (Retrieval-Augmented Generation) architecture to answer questions, as well as the Brazilian language model "Sabiá", based on a corpus of scientific articles published by researchers at UFRGS.
 
-Links of the articles:
+Links of the articles used:
 
 * [Can we trust LLMs as relevance judges?](https://sol.sbc.org.br/index.php/sbbd/article/view/30724)
 * [Evaluation of Question Answer Generation for Portuguese: Insights and Datasets](https://aclanthology.org/2024.findings-emnlp.306.pdf)
