@@ -20,7 +20,7 @@ The project implements a complete RAG pipeline, which is divided into two distin
 
 ### Phase 1: Indexing
 
-At this stage, the knowledge base is built and prepared for consultation.
+At this phase, the knowledge base is built and prepared for consultation.
 
 1. **Data Ingestion**: A corpus of scientific articles in PDF format is loaded. The text of each page is extracted and stored as an individual document, with source and page metadata preserved.
 2. **Semantic Chunking**: Each document is divided into chunks of text. The approach used is inspired by research on semantic chunking, where text is segmented into sentences and grouped based on the cosine similarity of their embeddings, respecting the text's natural semantic boundaries.
@@ -36,6 +36,16 @@ This phase is executed in real time for each user question.
 3. **Retrieval**: The FAISS index is queried to find the text chunks whose vectors are most semantically similar to the question vector.
 4. **Prompt Construction**: The original question and retrieved chunks (the "context") are inserted into an prompt template, which instructs the language model to respond based solely on the information provided.
 5. **Response Generation**: The final prompt is sent to the Sabiá-7B language model, which generates a factual and concise response in Portuguese.
+
+## Project Modules
+
+1. `data_ingestion.py`: Its only function is to load the raw data (PDF articles) and transform it into a format that the LangChain library can understand.
+    * The `load_corpus` function iterates over all `.pdf` files within the `corpus_pdfs` folder. Using the `pypdf` library, it reads each document page by page, extracts the textual content, and creates a LangChain Document object for each page. It appends the correct metadata to each Document, such as the source filename and page number.
+3. ``:
+4. ``:
+5. ``:
+6. ``:
+7. ``:
 
 ## License
 
