@@ -40,7 +40,7 @@ This phase is executed in real time for each user question.
 ## Project Modules
 
 1. `data_ingestion.py`: Its only function is to load the raw data (PDF articles) and transform it into a format that the LangChain library can understand.
-      * The `load_corpus` function iterates over all `.pdf` files within the `corpus_pdfs` folder. Using the `pypdf` library, it reads each document page by page, extracts the textual content, and creates a LangChain Document object for each page. It appends the correct metadata to each Document, such as the source filename and page number.
+      * The `load_corpus` function iterates over all `.pdf` files within a `corpus_pdfs` folder. Using the `pypdf` library, it reads each document page by page, extracts the textual content, and creates a LangChain Document object for each page. It appends the correct metadata to each Document, such as the source filename and page number.
       * **Output**: A list of Document objects, where each object represents a single page from one of the articles in the corpus.
 
 2. `chunking.py`: Process the uploaded documents, breaking the text of entire pages into smaller, more semantically meaningful chunks.
@@ -51,9 +51,48 @@ This phase is executed in real time for each user question.
       * The script imports the chunking function, loads the multilingual embedding model (`paraphrase-multilingual-mpnet-base-v2`), and uses it to convert the text content of each chunk into a high-dimensional vector. The result of this process is saved for future use. **This part took a long time.**
       * **Output**: A `vectors_corpus.pkl` file, which contains a dictionary with two keys: "chunks" (the complete list of Document objects) and "embeddings" (the array of corresponding vectors).
 
-4. `create_faiss_index.py`:
-8. ``:
-9. ``:
+4. `create_faiss_index.py`: Builds the vector search index from the embeddings generated in the previous step.
+      * The script loads the `vetors_corpus.pkl` file. It then uses the faiss library to build a data structure optimized for similarity searching. The script then integrates this structure with LangChain's Docstore, which stores the textual content and metadata, ensuring that each vector in the index is mapped to its original Document.
+      * **Output**: A folder named `faiss_index`, containing the `index.faiss` and `index.pkl` files.
+
+5. `setup_llm.py`: Configures the components of the response generation phase: the Large Language Model (LLM) and the prompt template.
+      * It ontains two main functions. `load_sabia_model` loads the **Sabiá-7B** model in GGUF format using the LlamaCpp library. It sets crucial parameters such as temperature=0 (for factual responses) and stop words (to control the end of generation). The `create_rag_prompt_template` function defines the structure of the prompt that will be sent to LLM, containing placeholders for {context} and {question} and clear instructions on how the model should behave.
+      * **Output**: Functions ready for loading an LLM object and a PromptTemplate object.
+
+6. `pipeline_rag.py`: Controls all the components to create and run the complete RAG pipeline.
+      * This is the main script for the query phase. It imports and utilizes functions from the previous modules. First, it loads the FAISS index and transforms it into a retriever. Then, it loads the Sabiá model and the prompt. Using the LangChain Expression Language (LCEL), it constructs the RAG chain: the user's question is passed to the retriever, the retrieved documents are formatted and inserted into the prompt along with the question, and the final prompt is sent to the **Sabiá** LLM to generate the answer.
+      * **Output**: The final answer to the user's question, printed to the console.
+  
+## Results
+
+* **Question 1**: De acordo com o artigo, qual foi o nível de correlação entre os julgamentos dos LLMs e os julgamentos humanos?
+
+* **Answer**: A correlação entre os julgamentos dos LLMs e os julgamentos humanos é 0,26.
+
+* **Question 2**: Quais foram os F1-scores para Reconhecimento de Entidade Nomeada no artigo 'Embeddings for Named Entity Recognition in Geoscience'?
+
+* **Answer**: O F1-score do modelo baseado em Embeddings para Reconhecimento de Entidade Nomeada na Literatura de Geologia no artigo 'Embeddings for Named Entity Recognition in Geoscience' foi 77.
+
+* **Question 3**: De acordo com o artigo 'An Efficient Approach for Semantic Relatedness', qual é a ideia principal por trás do conceito de vizinhança semântica?
+
+* **Answer**: <empty>
+
+* **Question 4**: Como o impacto dos erros de OCR na recuperação de informação foi medido no artigo 'Assessing the Impact'?
+
+* **Answer**: Como o impacto dos erros de OCR na recuperação de informação foi medido no artigo 'Assessing the Impact'?
+
+* * **Question 5**: Qual o melhor software comercial para OCR?
+
+* **Answer**: <empty>
+
+## Analysis
+
+Question 1 and 2: The system demonstrated satisfatory performance in factual questions, which require the location and extraction of specific data.
+
+Question 3 and 4: For more open-ended questions, which require the synthesis of concepts or methodologies, the system encountered difficulties. For Question 3, the model returned an empty answer. For Question 4, however, the model returned the question itself, an erratic LLM behavior known as **"parroting"**, where the model repeats the question instead of refusing to answer.
+     * Analyszing the retrieved context revealed that the vector similarity retriever, while effective at finding topically related passages (summaries, introductions), failed to identify the paragraphs with the highest information density, which contained definitions and detailed explanations. This is **a well-known challenge in Information Retrieval** and highlights the need for more advanced retrieval techniques.
+
+Question 5: The system proved itself robust by refusing to answer a question whose answers were not contained in the text, strictly sticking to the prompt's instructions. Therefore, the model returned an empty answer.
 
 ## License
 
