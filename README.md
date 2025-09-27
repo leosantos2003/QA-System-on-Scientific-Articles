@@ -2,7 +2,7 @@
 
 ## About
 
-The system is a Question-Answer (QA) pipeline that uses the RAG (Retrieval-Augmented Generation) architecture to answer questions, as well as the Brazilian language model "Sabiá", based on a corpus of scientific articles published by researchers at UFRGS.
+The system is a Question-Answer (QA) pipeline that uses the RAG (Retrieval-Augmented Generation) architecture, as well as the Brazilian language model "Sabiá", to answer the user's questions about a corpus of scientific articles published by researchers at UFRGS.
 
 Links of the articles used:
 
