@@ -16,6 +16,14 @@ Links of the articles:
 
 ## System Arquiteture
 
+The project implements a complete RAG pipeline, which is divided into two distinct phases.
+
+
+
 ## License
 
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
 ## Contact
+
+Leonardo Santos - <leorsantos2003@gmail.com>
