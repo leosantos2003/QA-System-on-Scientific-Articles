@@ -85,7 +85,7 @@ This phase is executed in real time for each user question.
 1. **Question 1 and 2**: The system demonstrated satisfatory performance in factual questions, which require the location and extraction of specific data.
 
 2. **Question 3 and 4**: For more open-ended questions, which require the synthesis of concepts or methodologies, the system encountered difficulties. For Question 3, the model returned an empty answer. For Question 4, however, the model returned the question itself, an erratic LLM behavior known as **"parroting"**, where the model repeats the question instead of refusing to answer.
-     * Analyszing the retrieved context revealed that the vector similarity retriever, while effective at finding topically related passages (summaries, introductions), failed to identify the paragraphs with the highest information density, which contained definitions and detailed explanations. This is **a well-known challenge in Information Retrieval** and highlights the need for more advanced retrieval techniques.
+     * Analyzing the retrieved context revealed that the vector similarity retriever, while effective at finding topically related passages (summaries, introductions), failed to identify the paragraphs with the highest information density, which contained definitions and detailed explanations. This is **a well-known challenge in Information Retrieval** and highlights the need for more advanced retrieval techniques.
 
 4. **Question 5**: The system proved itself robust by refusing to answer a question whose answers were not contained in the text, strictly sticking to the prompt's instructions. Therefore, the model returned an empty answer.
 
