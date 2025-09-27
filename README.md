@@ -29,7 +29,13 @@ At this stage, the knowledge base is built and prepared for consultation.
 
 ### Phase 2: Answer Generation
 
-1. fwgdvsc
+This phase is executed in real time for each user question.
+
+1. **User Query**: The user submits a question in natural language (Portuguese or English).
+2. **Question Embedding**: The question is vectorized using the same multilingual model.
+3. **Retrieval**: The FAISS index is queried to find the text chunks whose vectors are most semantically similar to the question vector.
+4. **Prompt Construction**: The original question and retrieved chunks (the "context") are inserted into an prompt template, which instructs the language model to respond based solely on the information provided.
+5. **Response Generation**: The final prompt is sent to the Sabiá-7B language model, which generates a factual and concise response in Portuguese.
 
 ## License
 
