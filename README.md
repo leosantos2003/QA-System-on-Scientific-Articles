@@ -40,12 +40,20 @@ This phase is executed in real time for each user question.
 ## Project Modules
 
 1. `data_ingestion.py`: Its only function is to load the raw data (PDF articles) and transform it into a format that the LangChain library can understand.
-    * The `load_corpus` function iterates over all `.pdf` files within the `corpus_pdfs` folder. Using the `pypdf` library, it reads each document page by page, extracts the textual content, and creates a LangChain Document object for each page. It appends the correct metadata to each Document, such as the source filename and page number.
-3. ``:
-4. ``:
-5. ``:
-6. ``:
-7. ``:
+      * The `load_corpus` function iterates over all `.pdf` files within the `corpus_pdfs` folder. Using the `pypdf` library, it reads each document page by page, extracts the textual content, and creates a LangChain Document object for each page. It appends the correct metadata to each Document, such as the source filename and page number.
+      * **Output**: A list of Document objects, where each object represents a single page from one of the articles in the corpus.
+
+2. `chunking.py`: Process the uploaded documents, breaking the text of entire pages into smaller, more semantically meaningful chunks.
+      * The script offers two strategies. The main one is `semantic_chunking`, which implements an advanced approach. For each Document, the function first splits the text into individual sentences using `nltk`. It then generates embeddings for each sentence and calculates the cosine similarity between adjacent sentences. Sequential sentences with high similarity are grouped into the same chunk. When the similarity drops below a threshold, a semantic boundary is identified, and a new chunk is started. This method ensures that the original metadata is preserved in each new chunk created.
+      * **Output**: A refined list of Document objects, where each object now represents a semantically cohesive chunk.
+
+3. `vectorization.py`: Transforms text chunks into numeric vectors (embeddings).
+      * The script imports the chunking function, loads the multilingual embedding model (`paraphrase-multilingual-mpnet-base-v2`), and uses it to convert the text content of each chunk into a high-dimensional vector. The result of this process is saved for future use. **This part took a long time.**
+      * **Output**: A `vectors_corpus.pkl` file, which contains a dictionary with two keys: "chunks" (the complete list of Document objects) and "embeddings" (the array of corresponding vectors).
+
+4. `create_faiss_index.py`:
+8. ``:
+9. ``:
 
 ## License
 
