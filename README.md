@@ -89,6 +89,59 @@ This phase is executed in real time for each user question.
 
 4. **Question 5**: The system proved itself robust by refusing to answer a question whose answers were not contained in the text, strictly sticking to the prompt's instructions. Therefore, the model returned an empty answer.
 
+## How to run the project
+
+Prerequisites:
+
+* C++ build tools ([Microsoft C++ Build Tools on Windows](https://visualstudio.microsoft.com/downloads/?q=build+tools) or build-essential on Linux).
+
+1. Clone the repository:
+
+```console
+git clone https://github.com/leosantos2003/Sabia-QA-System-on-Scientific-Articles
+```
+
+2. Create and activate a virtual environment:
+
+```console
+# Linux
+python3 -m venv .venv
+source ven/bin/activate
+
+# Windows
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+3. Install the dependencies:
+
+```console
+pip install -r requirements.txt
+```
+
+4. Download the LLM:
+     * Create a `models` folder at the root of the project.
+     * Dowload the GGUF model `sabia-7b.Q4_K_M.gguf` from the [repository](https://huggingface.co/TheBloke/sabia-7B-GGUF) and save it in `models`
+
+5. Build the vectorial index:
+     * Create a `corpus_pdfs` folder at the root of the project.
+     * Add the scientific articles in PDF format in `corpus_pdfs`
+     * **Note that you can add instead any texts of your choosing in PDF format, to see and test different results.**
+     * Run the indexing scripts in order:
+          * ```console
+            # 1.
+            python vectorization.py # This may take a while...
+            # 2.
+            python create_faiss_index.py
+            ```
+
+6. Run the QA pipeline:
+     * **Note that you can change the `question` variable in `pipeline_rag.py` to any question you'd like.**
+     * Run the script:
+          * ```console
+            python pipeline_rag.py
+            ```
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
