@@ -29,7 +29,7 @@ def load_retriever():
 
     # Conerts the index into a retriever, which can be used in the pipeline
     # k=n means that it will retrieve the n most relevant chunks
-    return faiss_index.as_retriever(search_kwargs={"k": 12})
+    return faiss_index.as_retriever(search_kwargs={"k": 8})
 
 def format_documents(docs):
     """
@@ -51,10 +51,10 @@ if __name__ == "__main__":
 
     print("Building RAG chain with LCEL...\n")
 
-    # CADEIA 1: Apenas para recuperar o contexto
+    # Chain 1: Only to retrieve the conext
     recuperation_chain = retriever | format_documents
 
-    # CADEIA 2: A cadeia RAG completa
+    # Chain 2: The complete RAG chain
     rag_chain = (
         {"context": recuperation_chain, "question": RunnablePassthrough()}
         | prompt
@@ -75,11 +75,11 @@ if __name__ == "__main__":
     # 4. Testing the Pipeline
 
     print("--- Testing the Pipeline with a Question ---\n")
-    question = "De acordo com o artigo, qual foi o nível de correlação entre os julgamentos dos LLMs e os julgamentos humanos?"
+    question = "Quais foram os F1-scores para Reconhecimento de Entidade Nomeada no artigo 'Embeddings for Named Entity Recognition in Geoscience'?"
 
     print(f"Question: {question}")
 
-    # ETAPA DE DEPURAÇÃO: Invocamos a primeira cadeia para ver o contexto
+    # Debugging section: Invokes the first chain to see the context
     print("\n--- CONTEXT RETRIEVED BY FAISS ---")
     recuperated_context = recuperation_chain.invoke(question)
     print(recuperated_context)

@@ -47,10 +47,11 @@ def load_corpus(folder_path: str) -> List[Document]:
         all_documents.extend(pages)
         print(f"\t -> {len(pages)} pages loaded.\n")
         """
-        # CORREÇÃO:
-        # Itera sobre cada página carregada para ajustar os metadados.
+        # Correction:
+        # Iterates over each loaded page to adjust the metadata
+        # Unfortunately, this display discrepancy wasn't properly fixed and I moved on
         for i, page in enumerate(pages):
-            # Substitui o número de página interno pelo número sequencial correto.
+            # Substitutes the inner page number pelo to the correct sequential number
             page.metadata["page"] = i + 1
         
         all_documents.extend(pages)
