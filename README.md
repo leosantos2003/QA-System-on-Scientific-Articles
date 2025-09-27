@@ -67,29 +67,30 @@ This phase is executed in real time for each user question.
 
 * **Question 1**: De acordo com o artigo, qual foi o nível de correlação entre os julgamentos dos LLMs e os julgamentos humanos?
 
-* **Answer**: A correlação entre os julgamentos dos LLMs e os julgamentos humanos é 0,26.
+     * **Answer**: A correlação entre os julgamentos dos LLMs e os julgamentos humanos é 0,26.
 
 * **Question 2**: Quais foram os F1-scores para Reconhecimento de Entidade Nomeada no artigo 'Embeddings for Named Entity Recognition in Geoscience'?
 
-* **Answer**: O F1-score do modelo baseado em Embeddings para Reconhecimento de Entidade Nomeada na Literatura de Geologia no artigo 'Embeddings for Named Entity Recognition in Geoscience' foi 77.
+     * **Answer**: O F1-score do modelo baseado em Embeddings para Reconhecimento de Entidade Nomeada na Literatura de Geologia no artigo 'Embeddings for Named Entity Recognition in Geoscience' foi 77.
 
 * **Question 3**: De acordo com o artigo 'An Efficient Approach for Semantic Relatedness', qual é a ideia principal por trás do conceito de vizinhança semântica?
 
-* **Answer**: <empty>
+     * **Answer**: <empty>
 
 * **Question 4**: Como o impacto dos erros de OCR na recuperação de informação foi medido no artigo 'Assessing the Impact'?
 
-* **Answer**: Como o impacto dos erros de OCR na recuperação de informação foi medido no artigo 'Assessing the Impact'?
+     * **Answer**: Como o impacto dos erros de OCR na recuperação de informação foi medido no artigo 'Assessing the Impact'?
 
-* * **Question 5**: Qual o melhor software comercial para OCR?
+* **Question 5**: Qual o melhor software comercial para OCR?
 
-* **Answer**: <empty>
+     * **Answer**: <empty>
 
 ## Analysis
 
 Question 1 and 2: The system demonstrated satisfatory performance in factual questions, which require the location and extraction of specific data.
 
 Question 3 and 4: For more open-ended questions, which require the synthesis of concepts or methodologies, the system encountered difficulties. For Question 3, the model returned an empty answer. For Question 4, however, the model returned the question itself, an erratic LLM behavior known as **"parroting"**, where the model repeats the question instead of refusing to answer.
+
      * Analyszing the retrieved context revealed that the vector similarity retriever, while effective at finding topically related passages (summaries, introductions), failed to identify the paragraphs with the highest information density, which contained definitions and detailed explanations. This is **a well-known challenge in Information Retrieval** and highlights the need for more advanced retrieval techniques.
 
 Question 5: The system proved itself robust by refusing to answer a question whose answers were not contained in the text, strictly sticking to the prompt's instructions. Therefore, the model returned an empty answer.
