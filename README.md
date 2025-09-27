@@ -142,6 +142,66 @@ pip install -r requirements.txt
             python pipeline_rag.py
             ```
 
+7. Excerpt of an expected terminal response:
+
+```console
+--- Testing the Pipeline with a Question ---
+
+Question: Quais foram os F1-scores para Reconhecimento de Entidade Nomeada no artigo 'Embeddings for Named Entity Recognition in Geoscience'?
+
+--- CONTEXT RETRIEVED BY FAISS ---
+: Embeddings for named
+entity recognition in geoscience portuguese literature.
+
+Out of all language model com-
+binations used in this work, our Named Entity Recognition
+architecture trained on the the Geology domain achieved its
+best results using general-domain Word Embeddings and a
+geology-enhanced general-domain Flair model, with an F1
+of 84.63%.
+
+4626
+The remainder of this work is organized as follows: Sec-
+tion 2. describes previous works on Named Entity Recogni-
+tion and the use of embeddings in particular to the geology
+domain; Section 3. describes our experimental resources:
+embeddings models and Named Entity Recognition anno-
+tated corpus; Section 4. describes the neural network used
+for Named Entity Recognition; Section 5. describes the ex-
+periments and their results; and Section 6. describes our
+conclusions and planned future work.
+
+In addition, we performed an
+extrinsic
+ quantitative evaluation on a downstream task of named entity recognition in geoscience, plus
+a
+ set of qualitative analyses, and conducted a comparative evaluation against a public general-domain
+embedding
+ model.
+
+Keywords:Geology, Named Entity Recognition, Word Embeddings, Stacked Embeddings
+1.
+
+Bilstm-crf for geological named entity recognition from
+the geoscience literature.
+
+Named Entity Recognition Corpus
+The Named Entity annotated corpus used in this work is
+called GeoCorpus-2.
+
+Contextualized Embeddings in Named-Entity Recognition 389
+5 Related Work
+Augenstein et al.
+--------------------------------------
+
+Wait, Sabiá is generating the answer...
+
+--- Answer generated! ---
+
+Answer: O F1-score do modelo baseado em Embeddings para Reconhecimento de Entidade Nomeada na Literatura de Geologia no artigo 'Embeddings for Named Entity Recognition in Geoscience' foi 77.
+------------------------
+```
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
