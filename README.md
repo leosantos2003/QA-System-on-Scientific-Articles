@@ -91,7 +91,7 @@ This phase is executed in real time for each user question.
 
 ## How to run the project
 
-Prerequisites:
+Prerequisite:
 
 * C++ build tools ([Microsoft C++ Build Tools on Windows](https://visualstudio.microsoft.com/downloads/?q=build+tools) or build-essential on Linux).
 
